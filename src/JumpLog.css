@@ -1,0 +1,4 @@
+.jumpList {
+    -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 150%);
+    mask-image: linear-gradient(to bottom, black 10%, transparent 150%);
+}

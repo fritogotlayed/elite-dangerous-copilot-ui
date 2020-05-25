@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import socketIO from 'socket.io-client';
+
+import JumpLog from './JumpLog';
+import ExternalLinks from './ExternalLinks'
 
 function App() {
+  const socket = socketIO('http://192.168.5.101:8888');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>Elite Dangerous Co-Pilot</h1>
+      <div className="row">
+        <JumpLog socket={socket} className="col-4" />
+        <ExternalLinks className="col-4" />
+      </div>
     </div>
   );
 }

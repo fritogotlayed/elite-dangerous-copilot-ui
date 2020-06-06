@@ -10,10 +10,4 @@
 .externalLinks ul li a {
   text-transform: uppercase;
   font-weight: 700;
-  text-decoration: none;
-  color: #FFFFFF;
-}
-
-.externalLinks ul a:hover {
-  color: #f07b05;
 }

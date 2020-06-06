@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import socketIO from 'socket.io-client';
 
-import JumpLog from './JumpLog';
-import ExternalLinks from './ExternalLinks'
+import Configure from './Applets/Configure';
+import JumpLog from './Applets/JumpLog';
+import ExternalLinks from './Applets/ExternalLinks';
+import MissionLog from './Applets/MissionLog';
+import Wallet from './Applets/Wallet';
 
 function App() {
-  const socket = socketIO('http://192.168.5.101:8888');
-  return (
-    <div className="container">
-      <h1>Elite Dangerous Co-Pilot</h1>
-      <div className="row">
-        <JumpLog socket={socket} className="col-4" />
-        <ExternalLinks className="col-4" />
+  const [source, setSource] = useState();
+
+  const computeUserSource = (inputSource) => {
+    return `http://${inputSource}:8888`;
+  };
+
+  const configSuccess = (source) => {
+    const standardizedSource = computeUserSource(source);
+    setSource(standardizedSource)
+  };
+
+  let body;
+  if (source) {
+    const socket = socketIO(source);
+    body = (<div>
+      <div className="columns">
+        <JumpLog socket={socket} className="column" />
+        <Wallet socket={socket} className="column" />
+        <ExternalLinks className="column" />
       </div>
+      <div className="columns">
+        <MissionLog socket={socket} className="column" />
+      </div>
+    </div>);
+  } else {
+    body = (<Configure onConfigureSuccess={configSuccess} />);
+  }
+  return (
+    <div className="content app">
+      <h1>Elite Dangerous Co-Pilot</h1>
+      {body}
     </div>
   );
 }

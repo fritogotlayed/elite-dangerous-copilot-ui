@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+npm run build
+yes | rm -rf ../elite-dangerous-copilot-daemon/src/static/*;
+cp -rf ./build/* ../elite-dangerous-copilot-daemon/src/static;
+echo 'Deploy Complete'

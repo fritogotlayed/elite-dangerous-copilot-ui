@@ -1,0 +1,38 @@
+.walletTableContainer {
+  max-height: 16.6em;
+  overflow-y: scroll;
+}
+
+.walletTableContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.walletTableContainer::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.2);
+  box-shadow: inset 0 0 6px rgba(255,255,255,0.2);
+  border-radius: 6px;
+}
+
+.walletTableContainer::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #F07B05;
+  -webkit-box-shadow: inset 0 0 6px #000000;
+  box-shadow: inset 0 0 6px #000000;
+}
+
+.walletTable {
+  background-color: #121212;
+  color: #FFFFFF;
+}
+
+.walletTable thead th {
+  color: #999999 !important;
+}
+
+.walletTable.is-striped tbody tr:not(.is-selected):nth-child(even) {
+  background-color: #202020;
+}
+
+.walletTable .debit {
+  color: #ff0000;
+}

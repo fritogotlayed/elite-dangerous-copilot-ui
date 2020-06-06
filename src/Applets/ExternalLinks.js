@@ -10,6 +10,7 @@ const ExternalLinks = ({ className }) => (
       <li><a href="https://coriolis.io/" target="_blank" rel="noopener noreferrer">Ship Builds</a></li>
       <li><a href="https://eddb.io/" target="_blank" rel="noopener noreferrer">EDDB</a></li>
       <li><a href="https://elite-dangerous.fandom.com/wiki/Elite_Dangerous_Wiki" target="_blank" rel="noopener noreferrer">Wiki</a></li>
+      <li><a href="http://edtools.ddns.net/miner" target="_blank" rel="noopener noreferrer">Miner Tool</a></li>
     </ul>
   </div>
 );

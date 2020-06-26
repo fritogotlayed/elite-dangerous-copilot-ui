@@ -3,11 +3,25 @@
 }
 
 .externalLinks ul li {
-  padding: 0 0.5em 0 0.5em;
+  padding: 0 0 0 0;
   /* display: inline; */
 }
 
 .externalLinks ul li a {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.externalLinks ul li ul {
+  list-style-type: none;
+}
+
+.externalLinks ul li ul li {
+  padding: 0 0 0 0;
+  /* display: inline; */
+}
+
+.externalLinks ul li ul li a {
   text-transform: uppercase;
   font-weight: 700;
 }

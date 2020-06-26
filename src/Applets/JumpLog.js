@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './JumpLog.css';
 
-const JumpLog = ({ socket, className }) => {
-  let [jumpHistory, setJumps] = useState([]);
+const JumpLog = ({ socket, opts, className }) => {
+  let [state, setState] = useState({ jumps: [] });
   const maxJumpsToShow = 10;
 
   socket.once('jumpLog', (data) => {
@@ -11,13 +11,32 @@ const JumpLog = ({ socket, className }) => {
     const sortedData = [].concat(standardizedData)
       .sort((a, b) => a.ts < b.ts ? 1 : -1);
     const newLog = _.slice(sortedData, 0, maxJumpsToShow);
-    setJumps(newLog);
+    setState(s => _.merge({}, s, { jumps: newLog }));
   });
+
+  useEffect(() => {
+    if (opts.bypassConfigure) {
+      const requestOpts = {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      };
+      fetch(`${opts.baseUrl}/api/data/jumps`, requestOpts)
+        .then((resp) => resp.json())
+        .then((body) => {
+          setState(s => _.merge({}, s, {
+            jumps: body
+          }))
+        });
+    }
+  }, [opts]);
 
   return (<div className={className}>
     <h2>Jumps</h2>
     <ol className="jumpList">
-         {jumpHistory.map((e) => (<li key={e.ts + e.location}>{e.location}</li>))}
+         {state.jumps.map((e) => (<li key={e.ts + e.location}>{e.location}</li>))}
     </ol>
   </div>);
 };

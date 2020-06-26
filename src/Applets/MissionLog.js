@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MissionLog.css';
 
-const MissionLog = ({ socket, className }) => {
+const MissionLog = ({ socket, opts, className }) => {
   const initialState = { missions: [] };
   const [state, setState] = useState(initialState);
 
@@ -12,6 +12,25 @@ const MissionLog = ({ socket, className }) => {
       .sort((a, b) => a.name > b.name ? 1 : -1);
     setState({ missions: sortedData })
   });
+
+  useEffect(() => {
+    if (opts.bypassConfigure) {
+      const requestOpts = {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      };
+      fetch(`${opts.baseUrl}/api/data/missions`, requestOpts)
+        .then((resp) => resp.json())
+        .then((body) => {
+          setState(s => _.merge({}, s, {
+            missions: body
+          }))
+        });
+    }
+  }, [opts]);
 
   const computeDisplayData = (data) => {
     // TODO: Use regular sort, not lodash
